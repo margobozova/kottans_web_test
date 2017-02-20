@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="main.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <title>Quiz</title>
+</head>
+<body>
+
+<header>
+  <span>Quiz Game</span>
+</header>
+
+<div id="page">
+
+  <div class="counter-answers">
+    <span>Correct Answer: </span>
+    <span id="correct-answers">0</span>
+  </div>
+
+  <div class="counter-questions">
+    <span>Total Questions: </span>
+    <span id="total-questions">0</span>
+  </div>
+
+  <h1 class="current-question-number">
+    <span>Question #</span>
+    <span id="question-id"></span>
+  </h1>
+
+  <h2 class="category">
+    <span>Category:</span>
+    <span id="question-category"></span>
+  </h2>
+
+  <p id="question-text"></p>
+
+  <button id="skip" class="skip">SKIP</button>
+
+  <div id="notification" class="result-notification">
+
+    <div class="correct-result">
+      <span class="result-text">
+        <i class="material-icons result-mood">mood</i>
+        Correct answer
+      </span>
+    </div>
+
+    <div class="incorrect-result">
+      <span class="result-text">
+        <i class="material-icons result-mood">mood_bad</i>
+        Incorrect answer
+      </span>
+    </div>
+
+  </div>
+
+  <div id="answer-wrapper"></div>
+
+  <div id="letter-wrapper"></div>
+
+  
+</div>
+
+<script src="./index.js"></script>
+
+</body>
+</html>
