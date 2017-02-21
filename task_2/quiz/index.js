@@ -9,7 +9,7 @@ const totalQuestionsWrap = document.getElementById('total-questions');
 const pageWrap = document.getElementById('page');
 const skipWrap = document.getElementById('skip');
 
-const controlResultArr = [];
+let controlResultArr = [];
 let counterLetter = 0;
 let counterAnswers = 0;
 let counterQuestions = 0;
@@ -64,13 +64,17 @@ function renderQuestions (data) {
 
 function moveLetter (ev, divWrap, answer) {
   divWrap.answered = !divWrap.answered;
-  console.log(divWrap);
-
-  divWrap.remove();
-  answerWrapper.appendChild(divWrap);
-  controlResultArr.push(divWrap.innerHTML);
-  counterLetter += 1;
-
+  if (divWrap.answered) {
+    divWrap.remove();
+    answerWrapper.appendChild(divWrap);
+    controlResultArr.push(divWrap.innerHTML);
+    counterLetter += 1;
+  } else {
+    divWrap.remove();
+    console.log(controlResultArr);
+    letterWrap.appendChild(divWrap);
+  }
+  console.log(controlResultArr);
   checkAnswer (controlResultArr, counterLetter, answer, divWrap);
 }
 
@@ -80,7 +84,8 @@ function answerCounter (ev, correctAnswersWrap, totalQuestionsWrap, counterAnswe
   correctAnswersWrap.innerHTML = counterAnswers;
   totalQuestionsWrap.innerHTML = counterQuestions;
   answerWrapper.innerHTML = '';
-  nextQuestionsWrap.classList.toggle('hidden');
+  controlResultArr = [];
+  nextQuestionsWrap.className = "next-question hidden";
   correctNotificationWrap.className = "result-notification";
   request ();
 }
@@ -100,7 +105,7 @@ function checkAnswer (controlResultArr, counterLetter, answer, divWrap) {
 
       nextQuestionsWrap.addEventListener("click", ev => answerCounter(ev, correctAnswersWrap, totalQuestionsWrap, counterAnswers, counterQuestions, divWrap, nextQuestionsWrap));
     } else {
-        correctNotificationWrap.className = "result-notification incorrect";
+      correctNotificationWrap.className = "result-notification incorrect";
     }
   }
 }
@@ -111,10 +116,11 @@ function skipQuestions () {
 request (); 
 
 function ev () {
-    counterQuestions += 1;
-    totalQuestionsWrap.innerHTML = counterQuestions;
-    answerWrapper.innerHTML = '';
-    letterWrap.innerHTML = '';
-    correctNotificationWrap.className = "result-notification";
-    request ();
+  counterQuestions += 1;
+  totalQuestionsWrap.innerHTML = counterQuestions;
+  answerWrapper.innerHTML = '';
+  letterWrap.innerHTML = '';
+  controlResultArr = [];
+  correctNotificationWrap.className = "result-notification";
+  request ();
 }
