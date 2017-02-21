@@ -43,7 +43,8 @@ function parseResponse(response) {
 }
 
 function renderAnswer (answer, data) {
-  const answerArr = answer.split('');
+  const answerArrOrder = answer.split('');
+  const answerArr = shuffle(answerArrOrder);
   
   for (let i = 0, length = answerArr.length; i < length; i++) {
     const divWrap = document.createElement('button');
@@ -138,4 +139,16 @@ function ev () {
   correctNotificationWrap.className = "result-notification";
   request ();
   nextQuestionsWrap.className = "next-question hidden";
+}
+function shuffle(array) {
+  let currentIndex = array.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
