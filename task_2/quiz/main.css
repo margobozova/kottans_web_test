@@ -28,7 +28,6 @@ header {
   width: 40%;
   left: 50%
 }
-
   .counter-answers, .counter-questions {
     font-size: 20px;
     color: #212121;
@@ -110,14 +109,12 @@ header {
     position: relative;
     display: block;
     width: 100%;
-    min-height: 200px;
+    min-height: 300px;
     border: 1px solid #757575;
     margin-top: 10px;
-    text-align: center;
   }
 
   #letter-wrapper {
-    text-align: center;
     position: relative;
   }
 
@@ -125,11 +122,11 @@ header {
       height: 40px;
       width: 40px;
       position: relative;
-      display: inline-block;
       background-color: #c2185b;
       color: rgb(255, 255, 255);
       border-radius: 6px;
-      margin: 10px;
+      margin:10px;
+      float:left;
       cursor: pointer;
     }
 

@@ -67,14 +67,16 @@ function moveLetter (ev, divWrap, answer) {
   if (divWrap.answered) {
     divWrap.remove();
     answerWrapper.appendChild(divWrap);
-    controlResultArr.push(divWrap.innerHTML);
+    controlResultArr.push(divWrap);
     counterLetter += 1;
   } else {
     divWrap.remove();
+    let index = controlResultArr.findIndex(function (x) {return x === divWrap;});
+    controlResultArr.splice(index, index + 1);
+    counterLetter -= 1;
     console.log(controlResultArr);
     letterWrap.appendChild(divWrap);
   }
-  console.log(controlResultArr);
   checkAnswer (controlResultArr, counterLetter, answer, divWrap);
 }
 
@@ -92,21 +94,32 @@ function answerCounter (ev, correctAnswersWrap, totalQuestionsWrap, counterAnswe
 
 function checkAnswer (controlResultArr, counterLetter, answer, divWrap) {
     if (counterLetter >= answer.length) {
-    const controlResultStr = controlResultArr.join('');
+      const answerArr = answer.split('');
+      let result;
+      let answerLength = answer.length;
+      controlLength = controlResultArr.length;
 
-    if (controlResultStr === answer) {
-      correctNotificationWrap.className = "result-notification correct";
+      for (let i = 0; i < answerLength; i++) {
+        let element = controlResultArr.find(function(element, index, array) {return index === i;})
+        if (answerArr[i] === element.innerHTML) {
+          result = true;
+        } else {
+          result = false;
+        }
+      }
 
-      const nextQuestionsWrap = document.createElement('button');
-      
-      nextQuestionsWrap.className = "next-question";
-      nextQuestionsWrap.innerHTML = 'NEXT QUESTION';
-      pageWrap.appendChild(nextQuestionsWrap);
+      if (result) {
+        correctNotificationWrap.className = "result-notification correct";
+        let nextQuestionsWrap = document.createElement('button');
+        
+        nextQuestionsWrap.className = "next-question";
+        nextQuestionsWrap.innerHTML = 'NEXT QUESTION';
+        pageWrap.appendChild(nextQuestionsWrap);
 
-      nextQuestionsWrap.addEventListener("click", ev => answerCounter(ev, correctAnswersWrap, totalQuestionsWrap, counterAnswers, counterQuestions, divWrap, nextQuestionsWrap));
-    } else {
-      correctNotificationWrap.className = "result-notification incorrect";
-    }
+        nextQuestionsWrap.addEventListener("click", ev => answerCounter(ev, correctAnswersWrap, totalQuestionsWrap, counterAnswers, counterQuestions, divWrap, nextQuestionsWrap));
+      } else {
+        correctNotificationWrap.className = "result-notification incorrect";
+      }
   }
 }
 
@@ -116,6 +129,7 @@ function skipQuestions () {
 request (); 
 
 function ev () {
+  let nextQuestionsWrap = document.getElementsByClassName('next-question');
   counterQuestions += 1;
   totalQuestionsWrap.innerHTML = counterQuestions;
   answerWrapper.innerHTML = '';
@@ -123,4 +137,5 @@ function ev () {
   controlResultArr = [];
   correctNotificationWrap.className = "result-notification";
   request ();
+  nextQuestionsWrap.className = "next-question hidden";
 }
