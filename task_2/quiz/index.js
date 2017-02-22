@@ -81,7 +81,7 @@ function moveLetter (ev, divWrap, answer) {
   checkAnswer (controlResultArr, counterLetter, answer, divWrap);
 }
 
-function answerCounter (ev, correctAnswersWrap, totalQuestionsWrap, counterAnswers, counterQuestions, divWrap, nextQuestionsWrap) {
+function answerCounter (ev, correctAnswersWrap, totalQuestionsWrap,  divWrap, nextQuestionsWrap) {
   counterAnswers += 1;
   counterQuestions += 1;
   correctAnswersWrap.innerHTML = counterAnswers;
@@ -102,7 +102,7 @@ function checkAnswer (controlResultArr, counterLetter, answer, divWrap) {
     nextQuestionsWrap.innerHTML = 'NEXT QUESTION';
     pageWrap.appendChild(nextQuestionsWrap);
 
-    nextQuestionsWrap.addEventListener("click", ev => answerCounter(ev, correctAnswersWrap, totalQuestionsWrap, counterAnswers, counterQuestions, divWrap, nextQuestionsWrap));
+    nextQuestionsWrap.addEventListener("click", ev => answerCounter(ev, correctAnswersWrap, totalQuestionsWrap, divWrap, nextQuestionsWrap));
   } else {
     correctNotificationWrap.className = "result-notification incorrect";
   }
